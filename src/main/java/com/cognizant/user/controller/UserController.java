@@ -5,16 +5,13 @@ import com.cognizant.user.model.User;
 import com.cognizant.user.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@CrossOrigin
 public class UserController {
 
     private UserService userService;
@@ -55,5 +52,9 @@ public class UserController {
         return new ResponseEntity<>("User Created!", HttpStatus.CREATED);
     }
 
+    @GetMapping("/")
+    public String useerService(){
+        return "user service";
+    }
 
 }
