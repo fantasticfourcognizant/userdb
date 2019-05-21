@@ -39,4 +39,16 @@ public class UserService {
         if(user == null) return null;
         else return user;
     }
+
+    public List<User> getAllUsers() {
+        List<User> users = userRepository.findAll();
+        return users;
+    }
+
+    public User resetPassword(User user) {
+        User user1 = userRepository.findByEmail(user.getEmail());
+        user1.setPassword(user.getPassword());
+        userRepository.save(user1);
+        return user1;
+    }
 }

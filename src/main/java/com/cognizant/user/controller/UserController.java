@@ -9,12 +9,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @CrossOrigin
 public class UserController {
 
     private UserService userService;
+    ObjectMapper mapper = new ObjectMapper();
 
     @Autowired
     public UserController(UserService userService) {
@@ -23,7 +26,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity validateUser(@RequestBody Login login) {
-        ObjectMapper mapper = new ObjectMapper();
+
         User user = userService.validateUser(login);
 
         if(user == null) {
@@ -52,9 +55,31 @@ public class UserController {
         return new ResponseEntity<>("User Created!", HttpStatus.CREATED);
     }
 
-    @GetMapping("/")
-    public ResponseEntity<String> useerService(){
-        return new ResponseEntity<>("Get User!", HttpStatus.OK);
+    @GetMapping("/allusers")
+    public ResponseEntity userService(){
+        List<User> users = userService.getAllUsers();
+
+        String json = new String();
+        try{
+            json = mapper.writeValueAsString(users);
+        }catch (Exception  e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity(json, HttpStatus.OK);
+    }
+
+    @PutMapping("/resetpassword")
+    public ResponseEntity resetUserPassword(@RequestBody User user) {
+        User returnedUser = userService.resetPassword(user);
+
+        String json = new String();
+        try{
+            json = mapper.writeValueAsString(returnedUser);
+        }catch (Exception  e) {
+            e.printStackTrace();
+        }
+
+        return new ResponseEntity(json, HttpStatus.OK);
     }
 
 }
