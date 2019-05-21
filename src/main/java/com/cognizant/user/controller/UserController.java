@@ -53,8 +53,8 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public String useerService(){
-        return "user service";
+    public ResponseEntity<String> useerService(){
+        return new ResponseEntity<>("Get User!", HttpStatus.OK);
     }
 
 }
