@@ -49,6 +49,7 @@ public class UserService {
         User user1 = userRepository.findByEmail(user.getEmail());
         user1.setPassword(user.getPassword());
         userRepository.save(user1);
+        System.out.println("I am at reset password service");
         return user1;
     }
 }

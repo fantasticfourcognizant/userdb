@@ -69,17 +69,18 @@ public class UserController {
     }
 
     @PutMapping("/resetpassword")
-    public ResponseEntity resetUserPassword(@RequestBody User user) {
+    public ResponseEntity<User> resetUserPassword(@RequestBody User user) {
         User returnedUser = userService.resetPassword(user);
 
-        String json = new String();
-        try{
-            json = mapper.writeValueAsString(returnedUser);
-        }catch (Exception  e) {
-            e.printStackTrace();
-        }
+//        String json = new String();
+//        try{
+//            json = mapper.writeValueAsString(returnedUser);
+//        }catch (Exception  e) {
+//            e.printStackTrace();
+//        }
 
-        return new ResponseEntity(json, HttpStatus.OK);
+        return new ResponseEntity(returnedUser, HttpStatus.OK);
+
     }
 
 }
